@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Solar System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>3D Solar System</h1>
+            <div class="controls-toggle">☰ Controls</div>
+        </header>
+        
+        <div id="scene-container"></div>
+        
+        <div class="controls-panel">
+            <div class="global-controls">
+                <button id="pause-resume">Pause</button>
+                <div class="speed-control">
+                    <label for="global-speed">Global Speed:</label>
+                    <input type="range" id="global-speed" min="0" max="2" step="0.1" value="1">
+                    <span id="global-speed-value">1x</span>
+                </div>
+            </div>
+            
+            <div class="planet-controls">
+                <!-- Planet controls will be added dynamically by JavaScript -->
+            </div>
+        </div>
+        
+        <footer>
+            <p>Created with Three.js | @Debajyoti Samanta</p>
+        </footer>
+    </div>
+</body>
+</html>

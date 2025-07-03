@@ -1,0 +1,203 @@
+:root {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --accent-color: #4fc3f7;
+    --panel-bg: rgba(30, 30, 30, 0.8);
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+header {
+    padding: 1rem;
+    text-align: center;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    z-index: 20;
+    position: relative;
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    position: relative;
+    z-index: 21;
+}
+
+.controls-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--panel-bg);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+.controls-toggle:hover {
+    background: rgba(50, 50, 50, 0.8);
+}
+
+#scene-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.controls-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--panel-bg);
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 10;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.controls-panel.visible {
+    transform: translateY(0);
+}
+
+.global-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+button {
+    background-color: var(--accent-color);
+    color: #000;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #81d4fa;
+}
+
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.speed-control label {
+    white-space: nowrap;
+}
+
+input[type="range"] {
+    width: 150px;
+    cursor: pointer;
+}
+
+.planet-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.planet-control {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.75rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.planet-control-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.planet-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    margin-top: auto;
+    position: relative;
+    z-index: 5;
+}
+
+/* Tooltip styles */
+.tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    pointer-events: none;
+    font-size: 0.9rem;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .planet-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .global-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .controls-toggle {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.9rem;
+    }
+}
