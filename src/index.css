@@ -1,0 +1,346 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+/* HUD & Glassmorphism Theme Variables */
+:root {
+    --bg-color: #050505;
+    --text-color: #e0f2fe;
+    --text-muted: #94a3b8;
+    --accent-color: #0ea5e9;
+    --accent-glow: rgba(14, 165, 233, 0.5);
+    
+    --panel-bg: rgba(10, 15, 30, 0.3);
+    --panel-border: rgba(14, 165, 233, 0.2);
+    --panel-blur: blur(12px);
+
+    /* For toggle */
+    --primary: #0ea5e9;
+    --primaryT: rgba(14, 165, 233, 0.5);
+    --transDur: 0.3s;
+}
+
+:root[data-theme='light'] {
+    --bg-color: #f1f5f9;
+    --text-color: #0f172a;
+    --text-muted: #475569;
+    --accent-color: #0284c7;
+    --accent-glow: rgba(2, 132, 199, 0.4);
+    
+    --panel-bg: rgba(255, 255, 255, 0.4);
+    --panel-border: rgba(2, 132, 199, 0.2);
+    --panel-blur: blur(16px);
+
+    --primary: #0284c7;
+    --primaryT: rgba(2, 132, 199, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow: hidden;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+}
+
+#root {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#scene-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* Glassmorphic HUD Header */
+header {
+    padding: 1rem 2rem;
+    background: var(--panel-bg);
+    backdrop-filter: var(--panel-blur);
+    -webkit-backdrop-filter: var(--panel-blur);
+    border-bottom: 1px solid var(--panel-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 1.5rem; /* slightly smaller to fit better */
+    font-weight: 700;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    position: relative;
+    z-index: 21;
+    margin: 0 auto;
+    text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.controls-toggle {
+    background: rgba(14, 165, 233, 0.1);
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    z-index: 100;
+    transition: all 0.3s ease;
+    margin-left: 1rem;
+    box-shadow: 0 0 10px transparent;
+}
+
+.controls-toggle:hover {
+    background: var(--accent-color);
+    color: #fff;
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+/* Controls Panel */
+.controls-panel {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(150%);
+    width: 90%;
+    max-width: 1000px;
+    background: var(--panel-bg);
+    backdrop-filter: var(--panel-blur);
+    -webkit-backdrop-filter: var(--panel-blur);
+    padding: 1.5rem;
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.controls-panel.visible {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Custom Scrollbar for HUD */
+.controls-panel::-webkit-scrollbar {
+    width: 6px;
+}
+.controls-panel::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.1);
+    border-radius: 4px;
+}
+.controls-panel::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 4px;
+}
+
+.global-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--panel-border);
+}
+
+button {
+    font-family: 'Rajdhani', sans-serif;
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 500;
+}
+
+.speed-control label {
+    white-space: nowrap;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* Stylized Range Input */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 150px;
+    background: transparent;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    margin-top: -6px;
+    box-shadow: 0 0 10px var(--accent-glow);
+    transition: transform 0.1s;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+    transform: scale(1.2);
+}
+
+.planet-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem;
+}
+
+.planet-control {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.planet-control:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--panel-border);
+}
+
+.planet-control .speed-control {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.planet-control .speed-control label {
+    font-size: 0.85rem;
+}
+
+.planet-control input[type="range"] {
+    width: 100%;
+}
+
+.planet-control-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.planet-control-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+
+.planet-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    box-shadow: 0 0 8px currentColor;
+}
+
+/* Tooltip HUD Target */
+.tooltip {
+    position: absolute;
+    background: var(--panel-bg);
+    backdrop-filter: var(--panel-blur);
+    -webkit-backdrop-filter: var(--panel-blur);
+    color: var(--accent-color);
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    pointer-events: none;
+    font-size: 0.9rem;
+    z-index: 100;
+    transition: opacity 0.2s;
+    box-shadow: 0 0 10px var(--accent-glow), inset 0 0 5px var(--accent-glow);
+}
+.tooltip::before {
+    content: '';
+    position: absolute;
+    top: -4px; left: -4px; right: -4px; bottom: -4px;
+    border: 1px solid rgba(14, 165, 233, 0.3);
+    z-index: -1;
+}
+
+/* Planet Labels */
+.planet-label {
+    font-family: 'Rajdhani', sans-serif;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+    pointer-events: none;
+    text-shadow: 0 0 4px #000, 0 0 8px var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .controls-panel { width: 95%; padding: 1rem; }
+    .planet-controls { grid-template-columns: 1fr 1fr; }
+    h1 { font-size: 1.5rem; }
+}
+@media (max-width: 480px) {
+    .planet-controls { grid-template-columns: 1fr; }
+    .controls-toggle { padding: 0.3rem 0.8rem; font-size: 0.8rem; }
+}
